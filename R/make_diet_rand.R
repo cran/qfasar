@@ -47,7 +47,7 @@
 #'                                         "Ringed",
 #'                                         "Spotted",
 #'                                         "Walrus")),
-#'                n_diet = 10000)
+#'                n_diet = 100)
 #'
 #' @export
 #'

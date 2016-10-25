@@ -36,7 +36,7 @@
 #' @param mean_meth An integer indicator of the estimation method for mean diet.
 #'   Default value 1.
 #' @param var_meth An integer indicator of the estimation method for the
-#'   variance of mean diet. Default value 1.
+#'   variance of mean diet. Default value 1 (bootstrap estimator).
 #' @param mean_boot The number of bootstrap replications to use, needed only if
 #'   the bootstrap method of estimating the variance of meat diet is selected.
 #'   Default value 100.
@@ -164,7 +164,6 @@
 #' indicates that the bootstrap estimator is considerably more reliable. The
 #' options for \code{var_meth} are:
 #' \itemize{
-#' \item var_meth == 0 skips variance estimation.
 #' \item var_meth == 1 yields the bootstrap estimator.  This is the default
 #'   value.
 #' \item var_meth == 2 yields the Beck et al. (2007) estimator.
@@ -202,12 +201,10 @@
 #' @examples
 #' est_diet(pred_sigs = matrix(c(0.05, 0.10, 0.30, 0.55,
 #'                               0.04, 0.11, 0.29, 0.56,
-#'                               0.10, 0.05, 0.35, 0.50,
-#'                               0.12, 0.03, 0.37, 0.48,
 #'                               0.10, 0.06, 0.35, 0.49,
-#'                               0.05, 0.15, 0.35, 0.45), ncol=6),
-#'          pred_uniq_types = c("Pred_1", "Pred_2", "Pred_3"),
-#'          pred_loc = matrix(c(1, 3, 5, 2, 4, 6), ncol=2),
+#'                               0.05, 0.15, 0.35, 0.45), ncol=4),
+#'          pred_uniq_types = c("Pred_1", "Pred_2"),
+#'          pred_loc = matrix(c(1, 3, 2, 4), ncol=2),
 #'          prey_sigs = matrix(c(0.06, 0.09, 0.31, 0.54,
 #'                               0.05, 0.09, 0.30, 0.56,
 #'                               0.03, 0.10, 0.30, 0.57,
@@ -220,8 +217,8 @@
 #'          prey_uniq_types = c("Prey_1", "Prey_2", "Prey_3"),
 #'          prey_loc = matrix(c(1, 4, 7, 3, 6, 9), ncol=2),
 #'          cc = c(0.75, 1.00, 1.50, 1.15),
-#'          space = 1, dist_meas = 1, gamma = NA, ind_boot = 100,
-#'          mean_meth = 1, var_meth = 2, mean_boot = NA)
+#'          space = 1, dist_meas = 1, ind_boot = 2,
+#'          mean_meth = 0)
 #'
 #' @export
 #'
@@ -564,33 +561,9 @@ est_diet <- function(pred_sigs, pred_uniq_types, pred_loc,
   }
 
 
-  # Check bootstrap values.
-  if(var_meth > 0 & (is.na(ind_boot) | ind_boot < 2 | is.na(mean_boot) |
-                     mean_boot < 2)){
-    err_code <- 15
-    err_message <- paste("The number of bootstrap replications must be an",
-                         "integer greater than exceed 1!",
-                         sep = " ")
-
-    return(list(pred_sigs = NA,
-                prey_sigs = NA,
-                mean_sigs = mean_sigs,
-                est_ind = est_ind,
-                conv = conv,
-                obj_func = obj_func,
-                mod_sigs = mod_sigs,
-                var_ind = var_ind,
-                est_mean = est_mean,
-                conv_mean = conv_mean,
-                var_mean = var_mean,
-                err_code = err_code,
-                err_message = err_message))
-  }
-
-
   # Check the value of mean_meth.
   if(!(mean_meth %in% 0:2)){
-    err_code <- 16
+    err_code <- 15
     err_message <- "The argument mean_meth must equal 0, 1, or 2!"
 
     return(list(pred_sigs = NA,
@@ -610,9 +583,9 @@ est_diet <- function(pred_sigs, pred_uniq_types, pred_loc,
 
 
   # Check the value of var_meth.
-  if(!(var_meth %in% 0:2)){
-    err_code <- 17
-    err_message <- "The argument var_meth must equal 0, 1, or 2!"
+  if(mean_meth > 0 & !(var_meth %in% 1:2)){
+    err_code <- 16
+    err_message <- "The argument var_meth must equal 1 or 2!"
 
     return(list(pred_sigs = NA,
                 prey_sigs = NA,
@@ -631,11 +604,34 @@ est_diet <- function(pred_sigs, pred_uniq_types, pred_loc,
 
 
 
-  # Check the value of mean_meth and var_meth.
-  if(mean_meth == 0 & var_meth > 0){
+  # Check bootstrap sample size for individual variance estimation.
+  if(is.na(ind_boot) | ind_boot < 2){
+    err_code <- 17
+    err_message <- paste("The number of bootstrap replications for individual",
+                         "diet estimates must be an integer exceeding 2!",
+                         sep = " ")
+
+    return(list(pred_sigs = NA,
+                prey_sigs = NA,
+                mean_sigs = mean_sigs,
+                est_ind = est_ind,
+                conv = conv,
+                obj_func = obj_func,
+                mod_sigs = mod_sigs,
+                var_ind = var_ind,
+                est_mean = est_mean,
+                conv_mean = conv_mean,
+                var_mean = var_mean,
+                err_code = err_code,
+                err_message = err_message))
+  }
+
+
+  # Check bootstrap sample size for mean variance estimation.
+  if(mean_meth > 0 & var_meth == 1 & (is.na(mean_boot) | mean_boot < 2)){
     err_code <- 18
-    err_message <- paste("Cannot estimate the variance of mean diet if",
-                         "mean diet composition is not estimated!",
+    err_message <- paste("The number of bootstrap replications for mean diet",
+                         "estimates must be an integer exceeding 2!",
                          sep = " ")
 
     return(list(pred_sigs = NA,
@@ -688,7 +684,9 @@ est_diet <- function(pred_sigs, pred_uniq_types, pred_loc,
 
   # Cast bootstrap sample sizes as integers.
   ind_boot <- as.integer(ind_boot)
-  mean_boot <- as.integer(mean_boot)
+  if(!is.na(mean_boot)){
+    mean_boot <- as.integer(mean_boot)
+  }
 
 
   # Define needed constants.
@@ -718,11 +716,12 @@ est_diet <- function(pred_sigs, pred_uniq_types, pred_loc,
   rownames(mod_sigs) <- rownames(pred_sigs)
   colnames(mod_sigs) <- colnames(pred_sigs)
 
+  ind_boot_est <- matrix(data = 0, nrow = n_prey_types, ncol = ind_boot)
+  var_ind <- array(data = 0, dim = c(n_prey_types, n_prey_types, n_pred),
+                   dimnames = list(prey_uniq_types, prey_uniq_types,
+                                   colnames(pred_sigs)))
+
   if(var_meth > 0) {
-    ind_boot_est <- matrix(data = 0, nrow = n_prey_types, ncol = ind_boot)
-    var_ind <- array(data = 0, dim = c(n_prey_types, n_prey_types, n_pred),
-                     dimnames = list(prey_uniq_types, prey_uniq_types,
-                                     colnames(pred_sigs)))
     mean_sigs_boot <- matrix(data = 0, nrow = n_fa, ncol = n_prey_types)
   }
 
@@ -770,57 +769,55 @@ est_diet <- function(pred_sigs, pred_uniq_types, pred_loc,
 
 
     ## Bootstrap estimates for individual variance estimation.
-    if(var_meth > 0){
-      n_conv <- 0
-      keep_going <- TRUE
-      while(keep_going){
+    n_conv <- 0
+    keep_going <- TRUE
+    while(keep_going){
 
-        # Bootstrap prey and compute mean prey signatures.
-        for(li2 in 1:n_prey_types){
-          this_sample <- sample(x = prey_loc[li2,1]:prey_loc[li2,2],
-                                size = prey_ss[li2], replace = TRUE)
-          mean_sigs_boot[,li2] <- apply(X = as.matrix(prey_sigs[,this_sample]),
-                                        MARGIN = 1,
-                                        FUN = mean)
-        }
-
-
-        # Estimate diet with the bootstrapped prey library.
-        this_est <- Rsolnp::solnp(pars = guess, fun = diet_obj_func,
-                                  eqfun = sum_constr, eqB = 1, LB = low_bound,
-                                  UB = up_bound, obs_sig = pred_sigs[,li1],
-                                  mean_sigs = mean_sigs_boot,
-                                  dist_meas = dist_meas,
-                                  gamma = gamma, control = list(trace=0))
-        if(this_est$convergence == 0){
-          n_conv <- n_conv + 1
-          ind_boot_est[,n_conv] <- this_est$pars
-
-          if(n_conv >= ind_boot){
-            keep_going <- FALSE
-          }
-        }
-      } # end while
+      # Bootstrap prey and compute mean prey signatures.
+      for(li2 in 1:n_prey_types){
+        this_sample <- sample(x = prey_loc[li2,1]:prey_loc[li2,2],
+                              size = prey_ss[li2], replace = TRUE)
+        mean_sigs_boot[,li2] <- apply(X = as.matrix(prey_sigs[,this_sample]),
+                                      MARGIN = 1,
+                                      FUN = mean)
+      }
 
 
-      # Compute the covariance matrix for this predator.
-      for(li2 in 1:(n_prey_types-1)){
-        var_ind[li2,li2,li1] <- stats::var(ind_boot_est[li2,])
-        for(li3 in (li2+1):n_prey_types){
-          var_ind[li2,li3,li1] <- stats::cov(ind_boot_est[li2,],
-                                             ind_boot_est[li3,])
-          var_ind[li3,li2,li1] <- var_ind[li2,li3,li1]
+      # Estimate diet with the bootstrapped prey library.
+      this_est <- Rsolnp::solnp(pars = guess, fun = diet_obj_func,
+                                eqfun = sum_constr, eqB = 1, LB = low_bound,
+                                UB = up_bound, obs_sig = pred_sigs[,li1],
+                                mean_sigs = mean_sigs_boot,
+                                dist_meas = dist_meas,
+                                gamma = gamma, control = list(trace=0))
+      if(this_est$convergence == 0){
+        n_conv <- n_conv + 1
+        ind_boot_est[,n_conv] <- this_est$pars
+
+        if(n_conv >= ind_boot){
+          keep_going <- FALSE
         }
       }
-      var_ind[n_prey_types,n_prey_types,li1] <-
-                                      stats::var(ind_boot_est[n_prey_types,])
+    } # end while
+
+
+    # Compute the covariance matrix for this predator.
+    for(li2 in 1:(n_prey_types-1)){
+      var_ind[li2,li2,li1] <- stats::var(ind_boot_est[li2,])
+      for(li3 in (li2+1):n_prey_types){
+        var_ind[li2,li3,li1] <- stats::cov(ind_boot_est[li2,],
+                                           ind_boot_est[li3,])
+        var_ind[li3,li2,li1] <- var_ind[li2,li3,li1]
+      }
     }
+    var_ind[n_prey_types,n_prey_types,li1] <-
+                                    stats::var(ind_boot_est[n_prey_types,])
   } # end li1 loop
 
 
 
   # Estimate mean diet ---------------------------------------------------------
-  if(mean_meth == 1 | mean_meth == 2){
+  if(mean_meth > 0){
 
     # Allocate memory.
     est_mean <- matrix(data = 0, nrow = n_prey_types,

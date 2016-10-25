@@ -58,7 +58,7 @@ make_diet_rand(uniq_types = as.factor(c("Bearded",
                                         "Ringed",
                                         "Spotted",
                                         "Walrus")),
-               n_diet = 10000)
+               n_diet = 100)
 
 }
 

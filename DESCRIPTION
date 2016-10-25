@@ -1,7 +1,7 @@
 Package: qfasar
 Type: Package
 Title: Quantitative Fatty Acid Signature Analysis in R
-Version: 1.0.0
+Version: 1.1.0
 Authors@R: person("Jeffrey F.", "Bromaghin",
                   email = "jbromaghin@usgs.gov",
                   role = c("aut", "cre"))
@@ -19,16 +19,16 @@ Description: An implementation of Quantitative Fatty Acid Signature
     distance between the observed and modeled signatures.  A variety of
     estimation options and simulation capabilities are implemented.
     Please refer to the vignette for additional details and references.
-License: CC0
+License: Unlimited
 LazyData: TRUE
 Imports: Rsolnp (>= 1.16)
 RoxygenNote: 5.0.1
-Suggests: knitr, rmarkdown
+Suggests: knitr, rmarkdown, testthat
 VignetteBuilder: knitr
-Packaged: 2016-08-24 21:42:58 UTC; jbromaghin
-Date: 2016-07-26
+Packaged: 2016-10-25 00:01:27 UTC; jbromaghin
+Date: 2016-10-24
 NeedsCompilation: no
 Author: Jeffrey F. Bromaghin [aut, cre]
 Maintainer: Jeffrey F. Bromaghin <jbromaghin@usgs.gov>
 Repository: CRAN
-Date/Publication: 2016-08-25 10:00:58
+Date/Publication: 2016-10-25 10:30:59

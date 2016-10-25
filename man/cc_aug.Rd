@@ -37,7 +37,7 @@ A list containing the following elements: \describe{
 \description{
 \code{cc_aug} computes the optimal calibration coefficient for an
 augmented signature proportion (Bromaghin et al. 2016).
-If signature augmentation is to be used, the user must call \code{dimac}
+If signature augmentation is to be used, the user must call \code{cc_aug}
 after first calling \code{\link{prep_sig}} with the prey signature data, in
 order to derive a calibration coefficient for the augmented signature.
 }

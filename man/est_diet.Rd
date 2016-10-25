@@ -55,7 +55,7 @@ of the variance of an individual predator's diet. Default value 100.}
 Default value 1.}
 
 \item{var_meth}{An integer indicator of the estimation method for the
-variance of mean diet. Default value 1.}
+variance of mean diet. Default value 1 (bootstrap estimator).}
 
 \item{mean_boot}{The number of bootstrap replications to use, needed only if
 the bootstrap method of estimating the variance of meat diet is selected.
@@ -189,7 +189,6 @@ the covariance matrix for each predator type. Our unpublished work
 indicates that the bootstrap estimator is considerably more reliable. The
 options for \code{var_meth} are:
 \itemize{
-\item var_meth == 0 skips variance estimation.
 \item var_meth == 1 yields the bootstrap estimator.  This is the default
   value.
 \item var_meth == 2 yields the Beck et al. (2007) estimator.
@@ -229,12 +228,10 @@ Stewart, C., S. Iverson, and C. Field. 2014. Testing for a change in diet
 \examples{
 est_diet(pred_sigs = matrix(c(0.05, 0.10, 0.30, 0.55,
                               0.04, 0.11, 0.29, 0.56,
-                              0.10, 0.05, 0.35, 0.50,
-                              0.12, 0.03, 0.37, 0.48,
                               0.10, 0.06, 0.35, 0.49,
-                              0.05, 0.15, 0.35, 0.45), ncol=6),
-         pred_uniq_types = c("Pred_1", "Pred_2", "Pred_3"),
-         pred_loc = matrix(c(1, 3, 5, 2, 4, 6), ncol=2),
+                              0.05, 0.15, 0.35, 0.45), ncol=4),
+         pred_uniq_types = c("Pred_1", "Pred_2"),
+         pred_loc = matrix(c(1, 3, 2, 4), ncol=2),
          prey_sigs = matrix(c(0.06, 0.09, 0.31, 0.54,
                               0.05, 0.09, 0.30, 0.56,
                               0.03, 0.10, 0.30, 0.57,
@@ -247,8 +244,8 @@ est_diet(pred_sigs = matrix(c(0.05, 0.10, 0.30, 0.55,
          prey_uniq_types = c("Prey_1", "Prey_2", "Prey_3"),
          prey_loc = matrix(c(1, 4, 7, 3, 6, 9), ncol=2),
          cc = c(0.75, 1.00, 1.50, 1.15),
-         space = 1, dist_meas = 1, gamma = NA, ind_boot = 100,
-         mean_meth = 1, var_meth = 2, mean_boot = NA)
+         space = 1, dist_meas = 1, ind_boot = 2,
+         mean_meth = 0)
 
 }
 

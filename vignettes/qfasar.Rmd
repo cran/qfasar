@@ -18,7 +18,7 @@ The package *qfasar* originated as a byproduct of exploration into the performan
 
 Because *qfasar* has been intentionally designed to support future research into QFASA methodology, the workflow that may be necessary is impossible to predict.  Consequently, the user may need to do a little more work and assume greater responsibility for code development than is the case with some R packages that implement analyses with a more predictable workflow.  Specific tasks and computations have been encapsulated into functions, but the user needs to know which functions to call and in what order.  In other words, the user needs to be familiar with the breadth of functionality available.  However, general guidance is provided for users whose only need is to estimate predator diet composition (see [**Getting started**](#Getting started)).  
 
-
+#
 # <a name="Getting started"></a> Getting started
 Users whose objectives involve basic diet estimation need to know how to get their data organized for an analysis, understand the options for diet estimation that are available in *qfasar*, and ultimately estimate diet composition.  That information is summarized in the following sections:
 
@@ -47,7 +47,10 @@ To view a list of the contents of *qfasar*, type `library(help=qfasar)`.
 To view the documentation of a function, which may contain more technical information than is included in this vignette, type `?function_name`.
 
 
+## <a name="Distribution list"></a> Distribution list
+To be notified when new versions of qfasar are available, send a request to be added to the qfasar distribution list to jbromaghin@usgs.gov.  Please include your name, affiliation, and e-mail address in the request.
 
+#
 # <a name="Data frames"></a> Data frames 
 Three types of data are potentially necessary when using *qfasar*.  The user will need to use an appropriate base R function, such as `read.csv()`, to read data into data frames, possibly modify the data frames to get them in the required formats, and pass the data frames as arguments to *qfasar* functions. Note that *qfasar* has strict formatting requirements for the data frames, which are described in the following subsections.
 
@@ -106,9 +109,9 @@ The fatty acid suite data frame contains fatty acid names, one or more sets of c
 - An optional last column can contain comments, but care must be taken not to include commas in the comment field if the data are stored as csv files.
 
 
-Use of the first row in the data frame to denote the set of calibration coefficients and fatty acid suite to be used in an analysis is intended to allow all available sets of calibration coefficients and all potential suites of fatty acids to be conveniently stored in the same file, while permitting fast and easy switching between them.  It also allows all fatty acid data to be stored in a single file, which is more convenient than having separate data files for each suite of fatty acids that one might want to use.
+Use of the first row in the data frame to denote the set of calibration coefficients and fatty acid suite to be used in an analysis is intended to allow all available sets of calibration coefficients and all potential suites of fatty acids to be conveniently stored in the same file, while permitting fast and easy switching between them.  It also allows all fatty acid data to be stored in a single file, which is more convenient and less confusing than having separate data files for each suite of fatty acids that one might want to use.
 
-The first few rows of a csv fatty acid suite data file follow below as an example.  This example has a single set of calibration coefficients, definitions for two suites of fatty acids, and comments in the last column.  Note that extra spaces have been added between commas and the subsequent values to enhance readability here, but extra spaces should not be included in the data file.
+The first few rows of a csv fatty acid suite data file follow below as an example.  This example has a single set of calibration coefficients (harbor_seal), definitions for two suites of fatty acids (dietary and ext_dietary), and comments in the last column.  Note that extra spaces have been added between commas and the subsequent values to enhance readability here, but extra spaces should not be included in the data file.
 
 ```
 fatty_acid, harbor_seal,  dietary,  ext_dietary,  comments
@@ -142,6 +145,7 @@ c17.1,      1.618,        0,        0,
 c16.3w1,    1,            1,        1,            From Nordstrom et al. (2008), BDL in Rosen & Tollit
 ```
 
+#
 # <a name="Preparing for an analysis"></a> Preparing for an analysis
 The first steps in an analysis performed in *qfasar* involve reading the fatty acid suite, prey signature data, and possibly predator signature data into data frames (see [**Data frames**](#Data frames)).  This will most likely be accomplished using the base R function `read.csv()`, or a related function, using code similar to that in the following code snippet.
 
@@ -275,7 +279,7 @@ new_cc <- cc_aug(sig_rep = prey_info$sig_rep,
                  dist_meas = 1)
 ```
 
-The algorithm implemented in `cc_aug()` is straightforward (Bromaghin In prep).  The calibration coefficients `cc` are used to transform complete prey signatures in `sig_rep` to the predator space, and the transformed signatures are censored to the suite of fatty acids defined by the argument `use_fa` and then augmented (Bromaghin et al. 2016b).  The subset of calibration coefficients in the suite definition `use_fa` are combined with an initial calibration coefficient for the augmented proportion (initial guess of 1), the censored signatures in `sig_scale` are also transformed to the predator space, and the total distance between the two sets of censored signatures is computed.  The calibration coefficient for the augmented proportion is taken as the value that minimizes the total distance.  The function `Rsolnp::solnp()` (Ghalanos & Theussl 2014) is used to minimize the distance between the two sets of censored signatures.
+The algorithm implemented in `cc_aug()` is straightforward (Bromaghin Under review).  The calibration coefficients `cc` are used to transform complete prey signatures in `sig_rep` to the predator space, and the transformed signatures are censored to the suite of fatty acids defined by the argument `use_fa` and then augmented (Bromaghin et al. 2016b).  The subset of calibration coefficients in the suite definition `use_fa` are combined with an initial calibration coefficient for the augmented proportion (initial guess of 1), the censored signatures in `sig_scale` are also transformed to the predator space, and the total distance between the two sets of censored signatures is computed.  The calibration coefficient for the augmented proportion is taken as the value that minimizes the total distance.  The function `Rsolnp::solnp()` (Ghalanos & Theussl 2014) is used to minimize the distance between the two sets of censored signatures.
 
 `cc_aug()` returns a list containing the following objects.
 
@@ -284,6 +288,7 @@ The algorithm implemented in `cc_aug()` is straightforward (Bromaghin In prep). 
 - err_message - A string contains a brief summary of the execution.
 
 
+#
 # <a name="Distance measures"></a> Distance measures
 *qfasar* implements three distance measures that have been used by QFASA practitioners and researchers:
 
@@ -291,7 +296,7 @@ The algorithm implemented in `cc_aug()` is straightforward (Bromaghin In prep). 
 - Kullback-Leibler
 - Chi-square
 
-A form of the Kullback-Leibler distance was recommended by Iverson et al. (2004).  The Kullback-Leibler distance represents a balance between the absolute difference between two proportions and the relative difference or ratio between the proportions.  Iverson et al. (2004) did some work to compare the Kullback-Leibler distance with several other distance measures, such as least squares, but the extent and results of those comparisons was not well-documented.
+A form of the Kullback-Leibler distance was recommended by Iverson et al. (2004).  The Kullback-Leibler distance represents a balance between the absolute difference between two proportions and the relative difference or ratio between the proportions.  Iverson et al. (2004) did some work to compare the Kullback-Leibler distance with several other distance measures, such as least squares, but the extent and results of those comparisons were not well-documented.
 
 The Aitchison distance (Aitchison et al. 2000) has been used in some recent methodology work (e.g., Stewart and Field 2011; Bromaghin et al. 2015, 2016a, 2016b).  It is based on differences between the logarithms of the ratio of a fatty acid proportion and the geometric mean of all proportions in a signature, and is therefore a relative measure.
 
@@ -332,6 +337,8 @@ As the number of signatures in the library and/or the number of fatty acids in a
 
 I have little experience with the chi-square distance and with different values of the `gamma` parameter. Stewart et al. (2014) state that the chi-square distance approaches the Aitchison distance as `gamma` decreases. However, as `gamma` decreases, the power-transformed signature components become increasingly similar in magnitude, a characteristic which seems counterintuitive for a distance measure, at least on the surface. Consequently, I provide no recommendations regarding `gamma` and provide this functionality for the sake of completeness and to facilitate future comparative research into the performance of QFASA with the chi-square distance and a range of values for `gamma`.
 
+
+#
 # <a name="Estimation spaces"></a> Estimation spaces 
 Bromaghin et al. (2015) introduced the terms "prey space" and "predator space".  The prey space is simply the simplex in which the prey signatures reside and, similarly, the predator space is the simplex in which the predator signatures reside.  The spaces differ due to predator metabolism of ingested prey tissue and the resulting modification of proportions.  As mentioned earlier ([**Calibration coefficient for an augmented proportion**](#Calibration coefficient for an augmented proportion)), calibration coefficients provide a one-to-one mapping or transformation between the prey and predator spaces.
 
@@ -340,6 +347,7 @@ Diet estimation and other analyses, such as computer simulation, can be performe
 Estimating diet composition with the Kullback-Leibler distance measure may produce different estimates in the two spaces (Bromaghin et al 2015).  This difference is caused by the component of the Kullback-Leibler distance that involves absolute differences between proportions, in combination with the change in the magnitude of proportions induced by application of the calibration coefficients.  Unfortunately, I am unaware of a means to determine which set of estimates are better in any particular investigation.  Although the sensitivity of the chi-square distance measure to estimation space has not been explicitly explored, its definition is based on absolute differences between power-transformed proportions and I therefore suspect estimates obtained in the two spaces would also differ.  The Aitchison distance is scale-invariant and estimates therefore do not differ as a function of the estimation space in which they are obtained, except for small differences attributable to numerical optimization.  This stability is one reason the Aitchison distance is the default distance measure in *qfasar*.
 
 
+#
 # <a name="Diet estimation"></a> Diet estimation
 Diet estimation is the central purpose of *qfasar* and a variety of estimation options are implemented in the function `est_diet()`.  Estimation options include choices for estimation space, measuring distance between signatures, estimating mean diet composition, and estimating the variance of the mean diet composition estimates.  Please refer to the sections [**Estimation spaces**](#Estimation spaces) and [**Distance measures**](#Distance measures) for information on those topics.
 
@@ -513,7 +521,6 @@ The "parameterized mean" estimator is an unpublished estimator that I have exper
 
 *qfasar* implements two methods of estimating the variance of mean diet composition estimates, the variance estimator of Beck et al. (2007) and a bootstrap estimator, controlled by the argument `var_meth`.
 
-- var_meth == 0 skips variance estimation.
 - var_meth == 1 yields the bootstrap estimator.  This is the default value.
 - var_meth == 2 yields the estimator of Beck et al. (2007), generalized to produce a variance matrix.
 
@@ -584,7 +591,7 @@ str(trans_est_mean)
 - err_message - A string contains a brief summary of the execution.
 
 
-
+#
 # <a name="Diagnostic functionality"></a> Diagnostic functionality
 
 *qfasar* contains diagnostic functionality that may be useful for some applications.  Those aspects of *qfasar* are described in the following subsections.
@@ -599,7 +606,7 @@ Prey and, perhaps to a lesser extent, predator signatures come with some pre-def
 
 However, one may reasonably wonder if additional structure exists within the signatures.  For example, within a prey library structured by species, might there be clusters of individuals within one or more species that are more similar within clusters than between clusters?  If so, there may be advantages to subdividing the prey library into a larger number of types.
 
-*qfasar* implements an algorithm referred to as **di**visive **ma**gnetic **c**lustering (DiMaC; Bromaghin et al. In prep) in the function `dimac()` to explore a collection of signatures for additional structure within defined types.  The DiMaC algorithm was modified from the diana algorithm of the package *cluster* (Maechler et al. 2016).  The algorithm is initialized with all signatures in one cluster. The first two "magnets"" are chosen as the two signatures having the greatest distance between them, using a distance measure of the user's choice [**(Distance measures)**](#Distance measures), and each non-magnet signature is placed in the cluster associated with the closest magnet. The algorithm then enters an iterative phase. At each iteration, the cluster with the greatest average distance between its signatures and the mean signature is identified as the "active" cluster. The two signatures within the active cluster having the greatest distance between them are selected as new magnets. One of the two new magnets replaces the original magnet for the active cluster and the second starts the formation of an additional cluster. Each non-magnet signature is placed in the cluster associated with the closest magnet, without regard for its cluster designation in the preceding iteration. Consequently, the algorithm is not simply bifurcating, but rather is much more dynamic and flexible. The iterations continue until each signature is in its own cluster.
+*qfasar* implements an algorithm referred to as **di**visive **ma**gnetic **c**lustering (dimac; Bromaghin et al. Under review) in the function `dimac()` to explore a collection of signatures for additional structure within defined types.  The dimac algorithm was modified from the diana algorithm of the package *cluster* (Maechler et al. 2016).  The algorithm is initialized with all signatures in one cluster. The first two "magnets"" are chosen as the two signatures having the greatest distance between them, using a distance measure of the user's choice [**(Distance measures)**](#Distance measures), and each signature is drawn to the nearest magnet to form clusters. The algorithm then enters an iterative phase. At each iteration, the cluster with the greatest average distance between its signatures and the mean signature is identified as the "active" cluster. The two signatures within the active cluster having the greatest distance between them are selected as new magnets. One of the two new magnets replaces the original magnet for the active cluster and the second starts the formation of an additional cluster. Each signature is drawn to the nearest to form clusters, without regard for its cluster designation in the preceding iteration. Consequently, the algorithm is not simply bifurcating, but rather is much more dynamic and flexible. The iterations continue until each signature is in its own cluster.
 
 `dimac()` is intended to be called after the fatty acid signatures have been prepared for analysis by calls to the functions `prep_fa()` and `prep_sig()`.  The following code snippet illustrates a typical call to `dimac()`.
 
@@ -620,7 +627,7 @@ str(my_clust)
 - err_code - An integer error code (0 if no error is detected).
 - err_message - A string contains a brief summary of the execution.
 
-Unfortunately, there is no objective method to determine the most appropriate number of clusters.  It may seem tempting to use a large number of clusters in subsequent analyses to exploit fine scale structure in the data.  Indeed, Meynier et al. (2010) used individual prey animals as prey types, so one might argue that having a large number of clusters is acceptable.  One disadvantage of using a large number of prey types is that the speed of numerical optimization will be slow with large prey libraries.  Also, partitioning a prey library into a large number of clusters can increase prey confounding between sub-types (Bromaghin et al. In prep).  Our recommendation is to use the results of `dimac()` conservatively and only partition prey types into multiple clusters if there is strong evidence for doing so.  I suggest that the distance results in the object `clust_dist` returned by `make_prey_part()` be examined to identify any large reductions in distance that are followed by a more gradual decrease in distance as the number of clusters increases further.  A possibly good example of this pattern is provided by the prey type Gaspereau from the Scotian fish prey library (Budge et al. 2002; Bromaghin et al. 2016a).  
+Unfortunately, there is no objective method to determine the most appropriate number of clusters.  It may seem tempting to use a large number of clusters in subsequent analyses to exploit fine scale structure in the data.  Indeed, Meynier et al. (2010) used individual prey animals as prey types, so one might argue that having a large number of clusters is acceptable.  One disadvantage of using a large number of prey types is that the speed of numerical optimization will be slow with large prey libraries.  Also, partitioning a prey library into a large number of clusters can increase prey confounding between sub-types (Bromaghin et al. In prep).  My recommendation is to use the results of `dimac()` conservatively and only partition prey types into multiple clusters if there is strong evidence for doing so.  Examine the distance results in the object `clust_dist` returned by `make_prey_part()` and identify any large reductions in distance that are followed by a more gradual decrease in distance as the number of clusters increases further.  An example of this pattern is provided by the prey type Gaspereau from the Scotian fish prey library (Budge et al. 2002; Bromaghin et al. 2016a).  
 
 ```{r}
 Number_of_clusters <- 1:41
@@ -632,9 +639,9 @@ Distance <- c(209.8, 190.4, 107.6, 96.3, 88.8, 82.5, 76.5, 72.6, 64.2, 59.8,
 plot(x = Number_of_clusters, y = Distance, main="Scotian: Gaspereau")
 ```
 
-Moving from one to two clusters provides little reduction in the summed distance within clusters, but the increase to three clusters is associated with a substantial drop in distance that is likely attributable to the discovery of some true structure within the signatures.  As the number of clusters increases above three, distance decreases rather continuously to zero.  I interpret this result as evidence that three clusters exist within the Gaspereau prey type and, in fact, the three clusters correspond well to information on the year and location samples were collected (Bromaghin et al. In prep). 
+Moving from one to two clusters provides little reduction in the summed distance within clusters, but the increase to three clusters is associated with a substantial drop in distance that is likely attributable to the discovery of some true structure within the signatures.  As the number of clusters increases above three, distance decreases rather continuously to zero.  I interpret this result as evidence that three clusters exist within the Gaspereau prey type and, in fact, the three clusters correspond well to information on the year and location samples were collected (Bromaghin et al. Under review). 
 
-Note that for diet estimation applications, partitioning a prey library into more clusters than the number of fatty acids used to estimate diet may result in estimates that are not unique. In such a case, estimates of diet composition need to be pooled into a smaller number of "reporting groups" (e.g., Bromaghin 2008; Meynier et al. 2010).
+Note that for diet estimation applications, partitioning a prey library into more clusters than the number of fatty acids used to estimate diet may result in estimates that are not unique. In such a case, estimates of diet composition need to be pooled into a smaller number of "reporting groups" (e.g., Bromaghin 2008; Meynier et al. 2010), which one would hope would largely eliminate any lack of uniqueness See Bromaghin et al. (Under review) for a discussion of this issue.
 
 ### <a name="Using a prey partition"></a> Using a prey partition
 To use the results of `dimac()` prey partitioning for diet estimation or some other analysis, the user needs to determine how many clusters each prey type should be partitioned into.  To do so,
@@ -674,7 +681,7 @@ prey_part <- make_prey_part(sig = prey_info$sig_scale,
 - err_message - A string contains a brief summary of the execution.
 
 ### <a name="Pooling partitioned estimates to the original prey types"></a> Pooling partitioned estimates to the original prey types
-If significant structure is found within a prey library, estimating diet composition on the basis of a partitioned prey library may produce estimates with less bias and possibly less variation through a reduction in prey confounding (Bromaghin et al. In prep). However, if a partitioned library is used to estimate predator diet composition, one may wish to pool the estimates back to the original, unpartitioned prey types for reporting purposes.  The functionality to do so is implemented in the function `diet_pool()`.
+If significant structure is found within a prey library, estimating diet composition on the basis of a partitioned prey library may produce estimates with less bias and possibly less variation through a reduction in prey confounding (Bromaghin et al. Under review). However, if a partitioned library is used to estimate predator diet composition, one may wish to pool the estimates back to the original, unpartitioned prey types for reporting purposes.  The functionality to do so is implemented in the function `diet_pool()`.
 
 `diet_pool()` takes information on the prey partition and estimates returned by a call to `est_diet()` ([**Diet estimation**](#Diet estimation)) as inputs and returns estimates pooled back to the original, unpartitioned prey types. The inputs to `diet_pool()` are
 
@@ -749,7 +756,7 @@ In any type of QFASA analysis, one might reasonably wonder how well the prey lib
 
 Despite the above cautions, it seems reasonable to investigate the performance of a prey library as long as one interprets the results with the cautions firmly in mind.  There may be several ways this could be done.  For example, Haynes et al. (2015) used what is commonly called "prey-on-prey" simulations to evaluate their prey library.  The approach implemented in *qfasar* is a leave-one-prey-out technique.
 
-A leave-one-prey-out analysis in *qfasar* is conducted as follows.  A single signature is temporarily removed from the prey library, the mean prey-type signatures are computed, the mixture of prey signatures that best approximates the removed signature is estimated as in diet estimation, and the temporarily removed signature is returned to the library.  This is done for all prey signatures in turn.  The mean diet estimate is computed for the signatures of each prey type.  This analysis performed on an ideal prey library would result in 100% of the diet estimate from each signature being attributed to the prey type to which the signature belongs.  The degree of prey confounding within a library is reflected by the extent to which portions of the diet estimates are attributed to incorrect prey types.
+A leave-one-prey-out analysis in *qfasar* is conducted as follows.  A single signature is temporarily removed from the prey library, the mean prey-type signatures are computed, the mixture of prey signatures that best approximates the removed signature is estimated as in diet estimation, after which the temporarily removed signature is returned to the library.  This is done for all prey signatures in turn.  The mean diet estimate is computed for the signatures of each prey type.  This analysis performed on an ideal prey library would result in 100% of the diet estimate from each signature being attributed to the prey type to which the signature belongs.  The degree of prey confounding within a library is reflected by the extent to which portions of the diet estimates are attributed to incorrect prey types.
 
 In *qfasar*, a **l**eave-**o**ne-**p**rey-**o**ut analysis is accomplished by a call to the function `lopo()`.  The inputs `lopo()` requires are obtained by calls to the functions `prep_sig()` with the prey signature data, or possibly `make_prey_part()` if a prey library has been partitioned into clusters (see [**Exploring signatures for structure**](#Exploring signatures for structure)).  The following code snippet contains an example call to `lopo()`.
 
@@ -866,11 +873,11 @@ Although `pred_beyond_prey()` performs an important diagnostic check, how best t
 
 ## <a name="Goodness of fit"></a> Goodness of fit
 
-In diet estimation ([**Diet estimation**](#Diet estimation)), a predator signature is modeled  as a linear mixture of prey signatures and diet composition is estimated as the mixture proportions that minimize a measure of distance between observed and modeled predator signatures (Iverson et al. 2004). Consequently, one might expect that how well modeled signatures approximate observed signatures would be of interest, and potentially informative with respect to interpretation of the resulting diet estimates. While that might be true, methods to assess how well predator signatures are modeled have received almost no attention in the literature (but see Bromaghin et al. 2015).
+In diet estimation ([**Diet estimation**](#Diet estimation)), a predator signature is modeled  as a linear mixture of prey signatures and diet composition is estimated as the mixture proportions that minimize a measure of distance between observed and modeled predator signatures (Iverson et al. 2004). Consequently, one might expect that how well modeled signatures approximate observed signatures would be of interest, and potentially informative with respect to interpretation of the resulting diet estimates. While that seems likely to be true, methods to assess how well predator signatures are modeled have received almost no attention in the literature (but see Bromaghin et al. 2015).
 
 An important byproduct of diet estimation is the value of the minimized distance measure associated with each estimated diet. The value will tend to be small when a modeled signature closely approximates an observed signature, and larger when a modeled signature approximates an observed signature less well. However, what value of the minimized distance measure might provide a warning flag for a potentially poor fit is an open question.
 
-The function `gof()` represents a first attempt to address that question. The algorithm implemented in the function is based on the following logic. First, I assume that a predator consumes the mixture of prey specified by its estimated diet composition. Given that assumption, the expected value of the distance measure is, in a sense, fixed by the combination of mean prey signatures and the estimated diet composition (Bromaghin 2015). Large values of the distance measure are then most likely to occur when random variation in a predator signature, which results only from the selection of individual prey within prey types if model assumptions are met, is maximized. Within the framework of simulating predator signatures, variation is maximized when bootstrap sample sizes of the prey signatures used to construct a predator signature are minimized (Bromaghin 2015; Bromaghin et al. 2016b).
+The function `gof()` represents a first attempt to address that question. The algorithm implemented in the function is based on the following logic. First, I assume that a predator consumes the mixture of prey specified by its estimated diet composition. Given that assumption, the expected value of the distance measure is, in a sense, fixed by the combination of mean prey signatures and the assumed diet composition (Bromaghin 2015). Large values of the distance measure are then most likely to occur when random variation in a predator signature, which results only from the selection of individual prey within prey types if model assumptions are met, is maximized. Within the framework of simulating predator signatures, variation is maximized when bootstrap sample sizes of the prey signatures used to construct a predator signature are minimized (Bromaghin 2015; Bromaghin et al. 2016b).
 
 Implementing the above logic, `gof()` randomly samples a single signature from each prey type and weights those signatures by a predator's estimated diet composition to construct a modeled signature. The modeled signature is then used to estimate diet. If the optimization function converges, the value of the minimized distance measure obtained with the modeled signature is compared to the value of the minimized distance measure obtained while estimating diet with the observed signature. This process is repeated a user-specified number of times (argument `boot_gof`) and the proportion of the simulated distance measure values that exceed the observed value of the distance measure is computed. `gof()` therefore constructs a statistic similar to a p-value, with small values being suggestive of predator signatures that may not have been closely approximated during diet estimation.
 
@@ -902,6 +909,7 @@ hist(gof_diag$p_val)
 NOTE: this algorithm is an idea whose performance has not been explored. It has been included in *qfasar* to support future research on this topic. Also, like diet estimation itself, this function involves considerable bootstrap resampling and numerical optimization, which may result in long run times.
 
 
+#
 # <a name="Simulation functionality"></a> Simulation functionality
 One of the primary motivations for the development of *qfasar* was to explore the performance of existing estimation methods and facilitate future research into potentially improved methods, work that is normally accomplished using computer simulation.  In addition, the existence of a "toolbox" of ready-to-use simulation functions was expected to make future research easier and faster to complete.
 
@@ -1006,7 +1014,7 @@ Investigations to study performance characteristics of QFASA may require predato
 
 Predator signatures are simulated using a procedure that that closely parallels diet estimation. A diet composition must first be specified (see [**Predator diet composition**](#Predator diet composition)). Conditioned on the specified diet, a bootstrap sample of signatures from each prey type is drawn (sampling with replacement) and the mean signature of each prey type is computed.  A predator signature is constructed as a linear mixture of the mean prey signatures, with the diet composition as the mixture proportions.
 
-An important question in simulating predator signatures is the number of signatures to bootstrap from each prey type.  In the literature, the choice of bootstrap sample sizes has been made subjectively. As examples, Iverson et al. (2004) specified three levels of prey sample size (30, 60, and 90) and Bromaghin et al. (2015) used bootstrap sample sizes equal to the sample sizes in the prey library. Some authors apparently use subjectively-determined sample sizes but do not report their values (e.g.,  Thiemann et al. 2008; Wang et al. 2010; Haynes et al. 2015). However, Bromaghin et al. (2016b) found that bootstrap sample sizes strongly influence both the bias and the variance of diet composition estimates in simulation studies. Consequently, the selection of bootstrap sample sizes is an important aspect of simulation design. Using sample sizes that are too small or too large may lead to an overly pessimistic or optimistic assessment, respectively, of model capabilities.
+An important question in simulating predator signatures is the number of signatures to bootstrap from each prey type.  In the literature, the choice of bootstrap sample sizes has been made subjectively. As examples, Iverson et al. (2004) specified three levels of prey sample size (30, 60, and 90) and Bromaghin et al. (2015) used bootstrap sample sizes equal to the sample sizes in the prey library. Some authors apparently used subjectively-determined sample sizes but did not report the values (e.g.,  Thiemann et al. 2008; Wang et al. 2010; Haynes et al. 2015). However, Bromaghin et al. (2016b) found that bootstrap sample sizes strongly influence both the bias and variance of diet composition estimates in simulation studies. Consequently, the selection of bootstrap sample sizes is an important aspect of simulation design. Using sample sizes that are too small or too large may lead to an overly pessimistic or optimistic assessment, respectively, of model capabilities.
 
 Bromaghin (2015) presented an objective method of establishing a bootstrap sample size for each prey type that produces simulated predator signatures having a realistic level of between-signature variation. That algorithm and the function implementing it are briefly described in a subsequent subsection ([**Bootstrap sample size algorithm**](#Bootstrap sample size algorithm)).
 
@@ -1060,7 +1068,7 @@ my_sim_preds <- make_pred_sigs(prey_sigs = prey_info$sig_scale,
 str(my_sim_preds)                          
 ```
 
-NOTE: the argument `n_pred_boot` controls the number of predator signatures to simulate.  The measure of variance over the simulated predators is compared to the target level of variation. Consequently, the value of `n_pred_boot` should be large enough to return an estimate of the variance measure that itself has low variance, so that the algorithm returns a numerically stable estimate of suitable sample sizes. I suspect that the default value of 1000 errs on the side of caution, but this has not been tested. 
+NOTE: the argument `n_pred_boot` controls the number of predator signatures to simulate.  The measure of variance over the simulated predators is compared to the target level of variation. Consequently, the value of `n_pred_boot` should be large enough to return an estimate of the variance measure that itself has low variance, so that the algorithm returns a numerically stable estimate of suitable sample sizes over repeated function calls. I suspect that the default value of 1000 errs on the side of caution, but this has not been tested. 
 
 `find_boot_ss()` returns a list with the following components:
 
@@ -1181,9 +1189,7 @@ The argument `err_bound` is used to compute box constraints for the calibration 
 - lower bound equals `(1 - err_bound)*cc_true`
 - upper bound equals `(1 + err_bound)*cc_true`
 
-where the argument `cc_true` is the set of true calibration coefficients provided as input. A uniformly distributed random number is generated between the bounds for each calibration coefficient and the vector of coefficients is scaled so that their sum equals the sum of the true calibration coefficients. Because only the relative magnitudes of calibration coefficients are important in diet estimation, scaling the coefficients to have a fixed sum ensures comparability between diet-estimation results obtained with multiple sets of coefficients.
-
-The mean relative absolute difference between the true and error-added calibration coefficients is computed as a measure of error for the entire vector (Bromaghin et al 2016a).
+where the argument `cc_true` is the set of true calibration coefficients provided as input. A uniformly distributed random number is generated between the bounds for each calibration coefficient and the vector of coefficients is scaled so that their sum equals the sum of the true calibration coefficients.  The mean relative absolute difference between the true and error-added calibration coefficients is computed as a measure of error for the entire vector (Bromaghin et al 2016a).
 
 The influence of calibration coefficient error can be investigated by generating predator signatures with the true set of calibration coefficients and estimating diet with a set of coefficients incorporating error (Bromaghin et al. 2016a). An example call to `add_cc_err()` is contained in the following code block.
 
@@ -1242,22 +1248,22 @@ The function `add_cc_err()` returns a list containing the following objects.
 
 
 
-
+#
 # References
 Aitchison, J., C. Barcelo-Vidal, J.A. Martin-Fernandez, and V. Pawlowsky-Glahn. 2000. Logratio analysis and compositional distance. *Mathematical Geology* 32:271-275.
 
 Beck, C.A., S.J. Iverson, W.D. Bowen, and W. Blanchard. 2007. Sex differences in grey seal diet reflect seasonal variation in foraging behaviour and reproductive espenditure: evidence from quantitative fatty acid signature analysis. *Journal of Animal Ecology* 76:490-502.
 
-Bromaghin, J.F. 2008. BELS: Backward elimination locus selection for studies of mixture composition or individual assignment. *Molecular Ecology Resources* 8:568-571.
+Bromaghin, J.F. Under review. qfasar: quantitative fatty acid signature analysis in R.
 
 Bromaghin, J.F. 2015. Simulating realistic predator signatures in quantitative fatty acid
 signature analysis. *Ecological Informatics* 30:68-71.
 
-Bromaghin, J.F. In prep. qfasar: quantitative fatty acid signature analysis in R.
+Bromaghin, J.F. 2008. BELS: Backward elimination locus selection for studies of mixture composition or individual assignment. *Molecular Ecology Resources* 8:568-571.
+
+Bromaghin, J.F., S.M. Budge, and G.W. Thiemann. Under review. A new method to discover hidden structure in fatty acid signature data.
 
 Bromaghin, J.F., S.M. Budge, and G.W. Thiemann. 2016b. Should fatty acid signature proportions sum to 1 for diet estimation? *Ecological Research* 31:597-606.
-
-Bromaghin, J.F., S.M. Budge, and G.W. Thiemann. In prep. A new method to discover hidden structure in fatty acid signature data.
 
 Bromaghin, J.F., S.M. Budge, G.W. Thiemann, and K.D. Rode. 2016a. Assessing the robustness of quantitative fatty acid signature analysis to assumption violations. *Methods in Ecology and Evolution* 7:51-59.
 

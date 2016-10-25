@@ -71,17 +71,9 @@
 #'                                0.10, 0.06, 0.35, 0.49,
 #'                                0.05, 0.15, 0.35, 0.45), ncol=6),
 #'                cc = c(0.75, 1.00, 1.50, 0.90),
-#'                near_zero = 0.000001,
-#'                min_gamma = 0.10,
+#'                near_zero = 0.05,
+#'                min_gamma = 0.01,
 #'                space = 1)
-#'
-#' comp_chi_gamma(sigs = matrix(c(0.05, 0.10, 0.30, 0.55,
-#'                                0.04, 0.11, 0.29, 0.56,
-#'                                0.10, 0.05, 0.35, 0.50,
-#'                                0.12, 0.03, 0.37, 0.48,
-#'                                0.10, 0.06, 0.35, 0.49,
-#'                                0.05, 0.15, 0.35, 0.45), ncol=6),
-#'                cc = c(0.75, 1.00, 1.50, 0.90))
 #'
 #' @export
 #'
@@ -109,8 +101,8 @@ comp_chi_gamma <- function(sigs, cc, near_zero = 0.00001, min_gamma = 0.05,
     return(list(gamma = gamma,
                 gamma_vec = gamma_vec,
                 prop_vec = prop_vec,
-                err_code <- err_code,
-                err_message <- err_message))
+                err_code = err_code,
+                err_message = err_message))
   }
 
 
@@ -122,8 +114,8 @@ comp_chi_gamma <- function(sigs, cc, near_zero = 0.00001, min_gamma = 0.05,
     return(list(gamma = gamma,
                 gamma_vec = gamma_vec,
                 prop_vec = prop_vec,
-                err_code <- err_code,
-                err_message <- err_message))
+                err_code = err_code,
+                err_message = err_message))
   }
 
 
@@ -135,8 +127,8 @@ comp_chi_gamma <- function(sigs, cc, near_zero = 0.00001, min_gamma = 0.05,
     return(list(gamma = gamma,
                 gamma_vec = gamma_vec,
                 prop_vec = prop_vec,
-                err_code <- err_code,
-                err_message <- err_message))
+                err_code = err_code,
+                err_message = err_message))
   }
 
 
@@ -148,8 +140,8 @@ comp_chi_gamma <- function(sigs, cc, near_zero = 0.00001, min_gamma = 0.05,
     return(list(gamma = gamma,
                 gamma_vec = gamma_vec,
                 prop_vec = prop_vec,
-                err_code <- err_code,
-                err_message <- err_message))
+                err_code = err_code,
+                err_message = err_message))
   }
 
 
@@ -161,8 +153,8 @@ comp_chi_gamma <- function(sigs, cc, near_zero = 0.00001, min_gamma = 0.05,
     return(list(gamma = gamma,
                 gamma_vec = gamma_vec,
                 prop_vec = prop_vec,
-                err_code <- err_code,
-                err_message <- err_message))
+                err_code = err_code,
+                err_message = err_message))
   }
 
 
@@ -174,8 +166,8 @@ comp_chi_gamma <- function(sigs, cc, near_zero = 0.00001, min_gamma = 0.05,
     return(list(gamma = gamma,
                 gamma_vec = gamma_vec,
                 prop_vec = prop_vec,
-                err_code <- err_code,
-                err_message <- err_message))
+                err_code = err_code,
+                err_message = err_message))
   }
 
 
@@ -187,8 +179,8 @@ comp_chi_gamma <- function(sigs, cc, near_zero = 0.00001, min_gamma = 0.05,
     return(list(gamma = gamma,
                 gamma_vec = gamma_vec,
                 prop_vec = prop_vec,
-                err_code <- err_code,
-                err_message <- err_message))
+                err_code = err_code,
+                err_message = err_message))
   }
 
 
@@ -200,8 +192,8 @@ comp_chi_gamma <- function(sigs, cc, near_zero = 0.00001, min_gamma = 0.05,
     return(list(gamma = gamma,
                 gamma_vec = gamma_vec,
                 prop_vec = prop_vec,
-                err_code <- err_code,
-                err_message <- err_message))
+                err_code = err_code,
+                err_message = err_message))
   }
 
 
@@ -349,17 +341,17 @@ comp_chi_gamma <- function(sigs, cc, near_zero = 0.00001, min_gamma = 0.05,
     return(list(gamma = gamma,
                 gamma_vec = gamma_vec,
                 prop_vec = prop_vec,
-                err_code <- err_code,
-                err_message <- err_message))
+                err_code = err_code,
+                err_message = err_message))
   } else{
-    err_code <- 5
+    err_code <- 9
     err_message <- "Caution, a value for gamma was not found!"
 
     return(list(gamma = NA,
                 gamma_vec = gamma_vec,
                 prop_vec = prop_vec,
-                err_code <- err_code,
-                err_message <- err_message))
+                err_code = err_code,
+                err_message = err_message))
 
   }
 }

@@ -158,8 +158,10 @@ adj_diet_fat <- function(prey_fat, diet_est, diet_var = NA){
 
 
   # If a variance matrix or array is passed.
-  if(length(diet_var) > 0){
+  if(length(diet_var) > 1){
     have_var <- TRUE
+  } else{
+    have_var <- FALSE
   }
 
   if(have_var > 0){
@@ -213,8 +215,8 @@ adj_diet_fat <- function(prey_fat, diet_est, diet_var = NA){
 
 
     # Check that the number of predators is equal.
-    if((is.vector(diet_est) & is.array(diet_var)) |
-       (is.matrix(diet_est) & is.matrix(diet_var))){
+    if((is.vector(diet_est) & length(dim(diet_var)) != 2) |
+       (is.matrix(diet_est) & length(dim(diet_var)) != 3)){
       err_code <- 8
       err_message <- paste("The number of predators in the arguments",
                            "diet_est and diet_var differ!",
