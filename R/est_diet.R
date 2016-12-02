@@ -665,7 +665,7 @@ est_diet <- function(pred_sigs, pred_uniq_types, pred_loc,
 
     prod_mat <- matrix(data = colSums(pred_sigs), nrow = length(cc),
                        ncol = ncol(pred_sigs), byrow=TRUE)
-    pred_sigs <- pred_sigs/colSums(pred_sigs)
+    pred_sigs <- pred_sigs/prod_mat
   }
   rm(cc_mat, prod_mat)
 
