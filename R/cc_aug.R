@@ -204,6 +204,7 @@ cc_aug <- function(sig_rep, sig_scale, cc_all, use_fa, dist_meas = 1,
   # Return.
   if(est$convergence == 0){
     cc <- c(old_cc, est$pars)
+    names(cc) <- c(rownames(sig_rep)[use_fa], "Augmented")
 
     err_code <- 0
     err_message <- "Success!"

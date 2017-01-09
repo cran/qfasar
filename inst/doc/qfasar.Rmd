@@ -349,7 +349,7 @@ Estimating diet composition with the Kullback-Leibler distance measure may produ
 
 #
 # <a name="Diet estimation"></a> Diet estimation
-Diet estimation is the central purpose of *qfasar* and a variety of estimation options are implemented in the function `est_diet()`.  Estimation options include choices for estimation space, measuring distance between signatures, estimating mean diet composition, and estimating the variance of the mean diet composition estimates.  Please refer to the sections [**Estimation spaces**](#Estimation spaces) and [**Distance measures**](#Distance measures) for information on those topics.
+Diet estimation is the central purpose of *qfasar* and a variety of estimation options are implemented in the function `est_diet()`.  Estimation options include choices for estimation space, measuring distance between signatures, estimating mean diet composition, and estimating the variances of individual and mean diet composition estimates.  Please refer to the sections [**Estimation spaces**](#Estimation spaces) and [**Distance measures**](#Distance measures) for information on those topics.
 
 The data arguments passed in a call to `est_diet()` are intended to be the objects returned by calls to `prep_fa()` with the fatty acid suites data frame, `prep_sig()` with the predator data frame, and `prep_sig()` with the prey data frame (see [**Preparing for an analysis**](#Preparing for an analysis)).  The remaining arguments are integer indicators of method selection or bootstrap sample sizes, described in subsequent subsections.
 
@@ -465,7 +465,11 @@ Diet estimation can occur in either the predator or prey space (Bromaghin et al.
 
 The variance matrix of an individual diet composition estimate is estimated through bootstrap sampling.  The signatures of each prey type are indepedently sampled with replacement, with sample sizes equal to the prey-type sample sizes in the prey library, and amalgamated to construct a bootstrapped prey library.  The bootstrapped prey library is then used to estimate the predator's diet.  This is repeated a specified number of times (argument `ind_boot`), resulting in replicated estimates of the diet of each predator.  The empirical variance and covariance of the replicated prey-type estimates are used to construct a covariance matrix for each predator (Beck et al. 2007, Bromaghin et al. 2015).  Note that the prey library is resampled independently for each predator.
 
-The variance matrices, one for each predator, are returned via the three-dimensional array `var_ind`.  The predators index the third dimension.  The following code snippet illustrates how to extract the variance information for an individual predator.
+
+If a particular analysis does not require the variances of the diet estimates for individual predators to be estimated, variance estimation can be disabled by setting the individual bootstrap sample size equal to zero (`ind_boot <- 0`).
+
+
+If estimated, the variance matrices, one for each predator, are returned via the three-dimensional array `var_ind`.  The predators index the third dimension.  The following code snippet illustrates how to extract the variance information for an individual predator.
 
 ```
 # Specify a predator.
@@ -521,10 +525,13 @@ The "parameterized mean" estimator is an unpublished estimator that I have exper
 
 *qfasar* implements two methods of estimating the variance of mean diet composition estimates, the variance estimator of Beck et al. (2007) and a bootstrap estimator, controlled by the argument `var_meth`.
 
+- var_meth == 0 skips variance estimation.
 - var_meth == 1 yields the bootstrap estimator.  This is the default value.
 - var_meth == 2 yields the estimator of Beck et al. (2007), generalized to produce a variance matrix.
 
 The bootstrap estimator draws independent samples of each prey type to form a bootstrap prey library, exactly as in [**Estimating individual diet and variance**](#Estimating individual diet and variance), and also a random sample of each predator type, with replacement and sample sizes equal to the observed sample sizes.  Mean diet is estimated using the bootstrapped prey and predator signatures and the method indicated by the argument `mean_meth`.  The argument `mean_boot` controls the number of times this process is replicated, and the replications are used to estimate the covariance matrix of the mean diet composition estimates for each predator type. Unpublished work indicates that the bootstrap estimator is more reliable than the Beck et al. (2007) estimator.
+
+Note that the Beck estimator cannot be used in combination with the perameterized-mean estimator of mean diet composition.
 
 `est_diet()` returns the estimated variances of the predator-type mean diet composition estimates in the object `var_mean`.
 

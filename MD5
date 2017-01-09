@@ -1,8 +1,8 @@
-d4c80c10327c500921720976c1a42f2a *DESCRIPTION
+9fac1d2146e92a8bc7af5dd5f8bedc89 *DESCRIPTION
 d265c2e8d368c077f22b8f36798f6478 *NAMESPACE
 2248da0ab8ffe673363bc898ea3ce056 *R/add_cc_err.R
 3f902504a8ef41013cda59e3b94fe077 *R/adj_diet_fat.R
-93e658d65f3bf5d3879ae441fd7d57b9 *R/cc_aug.R
+694609fbfb396dc136e11c5e3789e0dd *R/cc_aug.R
 0aa6de9d9f770f4ed2f944f4c819b39f *R/comp_chi_gamma.R
 7fd9363739a7a3a6a526243e2cff9b07 *R/diet_obj_func.R
 8808da16f7ec999b4f23025b131cdc47 *R/diet_pool.R
@@ -11,7 +11,7 @@ daca1e7b486db3401e8f14151d8324bf *R/dist_between_2_sigs.R
 52dd4813dfb03828f77b3f79e3fd7c22 *R/dist_pairs_map.R
 c52a4d7cfbed32aa3702e6303b2a740f *R/dist_sigs_2_mean.R
 459e6452e41c85cd1d2fb89f8d1e2917 *R/dist_sum_pairwise.R
-9e832d021cdf3d1aad892e85f47a3956 *R/est_diet.R
+0f853b33eba75fe36c8f80bdff83eb7f *R/est_diet.R
 17ccca06aa594285055f13b754de72e3 *R/find_boot_ss.R
 2f264c361224db3cc37c742e500c62fd *R/gof.R
 2242fa8cdae0ee937cc24ffb11b0be9b *R/lopo.R
@@ -29,8 +29,8 @@ ab4bc0aebff1d0123955acbcdb4bc946 *R/pm_obj_func.R
 5d44a7d63a5097fee731858ea1cc547e *R/sig_scale.R
 922e2d0f3a8c20b83c44cd0a6b051936 *build/vignette.rds
 ba1890d4b1ed7074ac23a888c78b475d *inst/doc/qfasar.R
-52145f0bfd70565af088be7effaa1089 *inst/doc/qfasar.Rmd
-eb8efeeddd03a1f7106de37d96062574 *inst/doc/qfasar.html
+c40c26dcad7967785158a09989767414 *inst/doc/qfasar.Rmd
+5981658aebeebd36bef020ef441ea232 *inst/doc/qfasar.html
 65f9bd5b6f545b8d3cb461922f504807 *man/add_cc_err.Rd
 253ba624b0fee1438c52d2c76a805a77 *man/adj_diet_fat.Rd
 a50d550997ec1e1ecb742b802096e227 *man/cc_aug.Rd
@@ -42,7 +42,7 @@ ae73b9ad99eda8e26e8f56549b41fbfa *man/diet_pool.Rd
 748347651127158903ddec8882fde1eb *man/dist_pairs_map.Rd
 815da9d2c09c5a74cff7b65155e880f6 *man/dist_sigs_2_mean.Rd
 fc6166d5c5206c85e71076ca9c9a0432 *man/dist_sum_pairwise.Rd
-a366ce0c79c60ce694125160e200fffa *man/est_diet.Rd
+bd48f0b6cf70be33079e023bc94a3117 *man/est_diet.Rd
 8bf39e8a979b4ab5733ce81a7acc71c3 *man/find_boot_ss.Rd
 d24da8f80f2ac796befecbc725774cdf *man/gof.Rd
 40d111f87f23831b780d7742ff656256 *man/lopo.Rd
@@ -74,4 +74,4 @@ b1f49cb67f5d1117771564b2935da39a *tests/testthat/test_make_ghost.R
 fc05b8c639fe7f7afb5847493b178773 *tests/testthat/test_pred_beyond_prey.R
 28ee663d8dcbfe73552f96091174e411 *tests/testthat/test_prep_fa.R
 2cd57df3263b2a1a11f6c19ec7cb16a3 *tests/testthat/test_prep_sig.R
-52145f0bfd70565af088be7effaa1089 *vignettes/qfasar.Rmd
+c40c26dcad7967785158a09989767414 *vignettes/qfasar.Rmd

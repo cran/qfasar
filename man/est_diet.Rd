@@ -58,8 +58,8 @@ Default value 1.}
 variance of mean diet. Default value 1 (bootstrap estimator).}
 
 \item{mean_boot}{The number of bootstrap replications to use, needed only if
-the bootstrap method of estimating the variance of meat diet is selected.
-Default value 100.}
+the bootstrap method of estimating the variance of meat diet is selected
+(var_meth == 1). Default value 100.}
 }
 \value{
 A list containing the following elements: \describe{
@@ -114,7 +114,7 @@ The object passed via the argument \code{cc} is presumed to be the
 object \code{cc} returned by a call to the function
 \code{\link{prep_fa}} with the fatty acid suite data frame.
 
-Bromaghin et al. (2015) introduced the terms \strong{prey space}" and
+Bromaghin et al. (2015) introduced the terms \strong{prey space} and
 \strong{predator space}. These terms refer to the simplexes in which the prey
 and predator signatures reside. The spaces differ due to predator metabolism
 of ingested prey tissue and the resulting modification of signature
@@ -126,7 +126,7 @@ Bromaghin et al. (2013) took the opposite approach and mapped prey signatures
 to the predator space. Simulation work has not revealed any strong reason
 to prefer one space over the other (Bromaghin et al. 2015). However, be aware
 that some distance measures will produce different diet estimates in the two
-spaces.  Please see the vignette for slightly more information.
+spaces.  Please see the vignette for more information.
 
 Estimation space options:
 \itemize{
@@ -150,12 +150,14 @@ The distance measure options are:
 Please refer to the vignette for additional information about distance
 measures.
 
-The covariance matrix of each estimated diet is estimated by bootstrap
+The covariance matrix of each estimated diet can be estimated by bootstrap
 sampling the prey library.  The signatures of each prey type are
 independently sampled with replacement and the predator diet is
 estimated with the bootstrapped library.  This is replicated \code{ind_boot}
 times and the covariance matrix is estimated from the replicated estimates
-(Beck et al. 2007, Bromaghin et al. 2015).
+(Beck et al. 2007, Bromaghin et al. 2015). If you do not wish to estimate
+variances for the individual diet estimates, pass a bootstrap sample size
+of 0 via the argument ind_boot.
 
 \code{qfasar} implements two methods of estimating the mean diet of each
 class of predator.  The first is the empirical mean of the estimated diets.
@@ -185,10 +187,13 @@ prey library and a random sample of each predator type, with sample sizes
 equal to the observed sample sizes.  Mean diet is estimated using the method
 indicated by \code{mean_meth}.  The argument \code{mean_boot} controls the
 number of times this is repeated, and the replications are used to estimate
-the covariance matrix for each predator type. Our unpublished work
-indicates that the bootstrap estimator is considerably more reliable. The
-options for \code{var_meth} are:
+the covariance matrix for each predator type. Unpublished work suggests
+that the bootstrap estimator is more reliable. Note that if using the
+parameterized-mean estimator for mean diet composition, the Beck estimator
+is not appropriate.  The options for
+\code{var_meth} are:
 \itemize{
+\item var_meth == 0 skips variance estimation for mean diets.
 \item var_meth == 1 yields the bootstrap estimator.  This is the default
   value.
 \item var_meth == 2 yields the Beck et al. (2007) estimator.
