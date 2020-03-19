@@ -4,8 +4,17 @@
 \alias{gof}
 \title{Goodness-of-fit for modeled predator signatures}
 \usage{
-gof(prey_sigs, prey_loc, mean_sigs, diet_est, conv, obj_func, dist_meas = 1,
-  gamma = 1, boot_gof = 500)
+gof(
+  prey_sigs,
+  prey_loc,
+  mean_sigs,
+  diet_est,
+  conv,
+  obj_func,
+  dist_meas = 1,
+  gamma = 1,
+  boot_gof = 500
+)
 }
 \arguments{
 \item{prey_sigs}{A matrix of prey signatures in the optimization space used
@@ -119,6 +128,7 @@ Bromaghin, J.F., K.D. Rode, S.M. Budge, and G.W. Thiemann. 2015. Distance
   measures and optimization spaces in quantitative fatty acid signature
   analysis. \emph{Ecology and Evolution} 5:1249-1262.
 }
+
 \examples{
 gof(prey_sigs = matrix(c(0.06, 0.09, 0.31, 0.54,
                          0.05, 0.09, 0.30, 0.56,
@@ -142,4 +152,3 @@ gof(prey_sigs = matrix(c(0.06, 0.09, 0.31, 0.54,
 
 
 }
-

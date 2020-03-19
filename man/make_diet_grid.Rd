@@ -65,6 +65,7 @@ Bromaghin, J.F., S.M. Budge, and G.W. Thiemann. 2016. Should fatty acid
 signature proportions sum to 1 for diet estimation? Ecological Research
 31:597-606.
 }
+
 \examples{
 make_diet_grid(uniq_types = as.factor(c("Bearded",
                                         "Beluga",
@@ -76,4 +77,3 @@ make_diet_grid(uniq_types = as.factor(c("Bearded",
                inv_inc = 10)
 
 }
-

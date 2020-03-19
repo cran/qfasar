@@ -16,7 +16,8 @@ test_obj <- make_prey_part(sig = matrix(c(0.01, 0.20, 0.30, 0.49,
                                       clust_1 = c(1, 1, 1, 1, 1, 1, 1, 1),
                                       clust_2 = c(1, 2, 1, 2, 1, 1, 2, 2),
                                       clust_3 = c(1, 2, 3, 3, 1, 2, 3, 3),
-                                      clust_4 = c(0, 0, 0, 4, 1, 2, 3, 4)),
+                                      clust_4 = c(0, 0, 0, 4, 1, 2, 3, 4),
+                                      stringsAsFactors = TRUE),
                            n_clust = c(1, 2))
 
 

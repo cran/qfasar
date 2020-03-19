@@ -112,6 +112,7 @@ Meynier, L., P.C.H. morel, B.L. Chilvers, D.D.S. Mackenzie, and P. Duignan.
 model sensitivity and diet estimates. \emph{Journal of Mammalogy}
 91:1484-1495.
 }
+
 \examples{
 dimac(sigs = matrix(c(0.05, 0.10, 0.30, 0.55,
                       0.04, 0.11, 0.29, 0.56,
@@ -157,4 +158,3 @@ dimac(sigs = matrix(c(0.05, 0.10, 0.30, 0.55,
       loc = matrix(c(1, 3, 5, 2, 4, 6), ncol=2))
 
 }
-

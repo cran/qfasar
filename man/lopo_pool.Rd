@@ -70,6 +70,7 @@ Bromaghin, J.F., K.D. Rode, S.M. Budge, and G.W. Thiemann. 2015. Distance
   measures and optimization spaces in quantitative fatty acid signature
   analysis. \emph{Ecology and Evolution} 5:1249-1262.
 }
+
 \examples{
 
 lopo_pool(est = matrix(c(0.90, 0.05, 0.30, 0.02,
@@ -85,4 +86,3 @@ lopo_pool(est = matrix(c(0.90, 0.05, 0.30, 0.02,
           )
 
 }
-

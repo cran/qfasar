@@ -23,8 +23,9 @@
 #'   signatures of each prey type within \code{prey_sigs}, intended to be the
 #'   object \code{loc} returned by a call to the function
 #'   \code{\link{prep_sig}} with the prey data frame.
-#' @param cc A vector of calibration coefficients, intended to be the object
-#'   \code{cc} returned by the function \code{\link{prep_fa}}.
+#' @param cc A vector of calibration coefficients, intended to be a subset of
+#'   the object \code{cc} returned by the function \code{\link{prep_fa}} or the
+#'   object \code{cc} returned by the function \code{\link{cc_aug}}.
 #' @param space An integer indicator of the estimation space to be used. Default
 #'   value 1.
 #' @param dist_meas An integer indicator of the distance measure to be used.
@@ -85,9 +86,13 @@
 #' \code{uniq_types}, and \code{loc}, respectively, returned by a call to the
 #' function \code{\link{prep_sig}} with the prey data frame.
 #'
-#' The object passed via the argument \code{cc} is presumed to be the
-#' object \code{cc} returned by a call to the function
-#' \code{\link{prep_fa}} with the fatty acid suite data frame.
+#' The object passed via the argument \code{cc} is presumed to be a subset of
+#' the object \code{cc} returned by a call to the function
+#' \code{\link{prep_fa}} with the fatty acid suite data frame. Use the logical
+#' vector \code{use} returned by \code{\link{prep_fa}} to subset the list of
+#' all calibration coefficients to the suite to be used for diet estimation.
+#' Alternatively, if signature augmentation is used, pass the object \code{cc}
+#' returned by the funtion \code{\link{cc_aug}}.
 #'
 #' Bromaghin et al. (2015) introduced the terms \strong{prey space} and
 #' \strong{predator space}. These terms refer to the simplexes in which the prey

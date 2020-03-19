@@ -72,6 +72,7 @@ Please refer to the vignette and documentation for the functions
 \code{\link{dimac}} and \code{\link{prep_sig}} for additional
 information.
 }
+
 \examples{
 make_prey_part(sig = matrix(c(0.01, 0.20, 0.30, 0.49,
                               0.05, 0.14, 0.39, 0.42,
@@ -92,4 +93,3 @@ make_prey_part(sig = matrix(c(0.01, 0.20, 0.30, 0.49,
                n_clust = c(1, 2))
 
 }
-

@@ -90,6 +90,7 @@ Bromaghin, J.F., K.D. Rode, S.M. Budge, and G.W. Thiemann. 2015. Distance
   measures and optimization spaces in quantitative fatty acid signature
   analysis. \emph{Ecology and Evolution} 5:1249-1262.
 }
+
 \examples{
 cc_aug(sig_rep = matrix(c(0.05, 0.10, 0.30, 0.55,
                           0.04, 0.11, 0.29, 0.56,
@@ -142,4 +143,3 @@ cc_aug(sig_rep = matrix(c(0.05, 0.10, 0.30, 0.55,
        dist_meas = 3)
 
 }
-

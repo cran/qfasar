@@ -104,6 +104,7 @@ Bromaghin, J.F., K.D. Rode, S.M. Budge, and G.W. Thiemann. 2015. Distance
   measures and optimization spaces in quantitative fatty acid signature
   analysis. \emph{Ecology and Evolution} 5:1249-1262.
 }
+
 \examples{
 lopo(sigs = matrix(c(0.05, 0.10, 0.30, 0.55,
                      0.04, 0.11, 0.29, 0.56,
@@ -166,4 +167,3 @@ lopo(sigs = matrix(c(0.05, 0.10, 0.30, 0.55,
      loc = matrix(c(1, 3, 5, 2, 4, 6), ncol=2))
 
 }
-

@@ -50,6 +50,7 @@ Alternatively, and more risky, a vector of unique prey names can be created
 using the concatenate function and cast as a factor, i.e.,
 uniq_types <- as.factor(c("Prey_1", "Prey_2", ..., "Prey_P)).
 }
+
 \examples{
 make_diet_rand(uniq_types = as.factor(c("Bearded",
                                         "Beluga",
@@ -61,4 +62,3 @@ make_diet_rand(uniq_types = as.factor(c("Bearded",
                n_diet = 100)
 
 }
-

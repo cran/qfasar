@@ -79,6 +79,7 @@ Stewart, C., S. Iverson, and C. Field. 2014. Testing for a change in diet
   using fatty acid signatures. \emph{Environmental and Ecological Statistics}
   21:775-792.
 }
+
 \examples{
 comp_chi_gamma(sigs = matrix(c(0.05, 0.10, 0.30, 0.55,
                                0.04, 0.11, 0.29, 0.56,
@@ -92,4 +93,3 @@ comp_chi_gamma(sigs = matrix(c(0.05, 0.10, 0.30, 0.55,
                space = 1)
 
 }
-

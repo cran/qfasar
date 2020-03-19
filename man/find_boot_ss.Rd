@@ -149,6 +149,7 @@ Wang, S.W., T.E. Hollmen, and S.J. Iverson. 2010. Validating quantitative
   eiders (\emph{Somateria fischeri} and \emph{Polysticta stelleri}).
   \emph{Journal of Comparative Physiology B} 180:125-139.
 }
+
 \examples{
 find_boot_ss(pred_sigs = matrix(c(0.05, 0.10, 0.30, 0.55,
                                   0.04, 0.11, 0.29, 0.56,
@@ -198,4 +199,3 @@ find_boot_ss(pred_sigs = matrix(c(0.05, 0.10, 0.30, 0.55,
              prey_loc = matrix(c(1, 4, 7, 3, 6, 9), ncol=2))
 
 }
-

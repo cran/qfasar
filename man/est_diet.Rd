@@ -4,9 +4,22 @@
 \alias{est_diet}
 \title{Estimate predator diet composition}
 \usage{
-est_diet(pred_sigs, pred_uniq_types, pred_loc, prey_sigs, prey_uniq_types,
-  prey_loc, cc, space = 1, dist_meas = 1, gamma = 1, ind_boot = 100,
-  mean_meth = 1, var_meth = 1, mean_boot = 100)
+est_diet(
+  pred_sigs,
+  pred_uniq_types,
+  pred_loc,
+  prey_sigs,
+  prey_uniq_types,
+  prey_loc,
+  cc,
+  space = 1,
+  dist_meas = 1,
+  gamma = 1,
+  ind_boot = 100,
+  mean_meth = 1,
+  var_meth = 1,
+  mean_boot = 100
+)
 }
 \arguments{
 \item{pred_sigs}{A vector or matrix of predator signatures ready for
@@ -36,8 +49,9 @@ signatures of each prey type within \code{prey_sigs}, intended to be the
 object \code{loc} returned by a call to the function
 \code{\link{prep_sig}} with the prey data frame.}
 
-\item{cc}{A vector of calibration coefficients, intended to be the object
-\code{cc} returned by the function \code{\link{prep_fa}}.}
+\item{cc}{A vector of calibration coefficients, intended to be a subset of
+the object \code{cc} returned by the function \code{\link{prep_fa}} or the
+object \code{cc} returned by the function \code{\link{cc_aug}}.}
 
 \item{space}{An integer indicator of the estimation space to be used. Default
 value 1.}
@@ -110,9 +124,13 @@ and \code{prey_loc} are presumed to be the objects \code{sig_scale},
 \code{uniq_types}, and \code{loc}, respectively, returned by a call to the
 function \code{\link{prep_sig}} with the prey data frame.
 
-The object passed via the argument \code{cc} is presumed to be the
-object \code{cc} returned by a call to the function
-\code{\link{prep_fa}} with the fatty acid suite data frame.
+The object passed via the argument \code{cc} is presumed to be a subset of
+the object \code{cc} returned by a call to the function
+\code{\link{prep_fa}} with the fatty acid suite data frame. Use the logical
+vector \code{use} returned by \code{\link{prep_fa}} to subset the list of
+all calibration coefficients to the suite to be used for diet estimation.
+Alternatively, if signature augmentation is used, pass the object \code{cc}
+returned by the funtion \code{\link{cc_aug}}.
 
 Bromaghin et al. (2015) introduced the terms \strong{prey space} and
 \strong{predator space}. These terms refer to the simplexes in which the prey
@@ -230,6 +248,7 @@ Stewart, C., S. Iverson, and C. Field. 2014. Testing for a change in diet
   using fatty acid signatures. \emph{Environmental and Ecological Statistics}
   21:775-792.
 }
+
 \examples{
 est_diet(pred_sigs = matrix(c(0.05, 0.10, 0.30, 0.55,
                               0.04, 0.11, 0.29, 0.56,
@@ -253,4 +272,3 @@ est_diet(pred_sigs = matrix(c(0.05, 0.10, 0.30, 0.55,
          mean_meth = 0)
 
 }
-

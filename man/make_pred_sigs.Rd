@@ -64,6 +64,7 @@ Bromaghin, J.F., K.D. Rode, S.M. Budge, and G.W. Thiemann. 2015. Distance
   measures and optimization spaces in quantitative fatty acid signature
   analysis. \emph{Ecology and Evolution} 5:1249-1262.
 }
+
 \examples{
 make_pred_sigs(prey_sigs = matrix(c(0.06, 0.09, 0.31, 0.54,
                                   0.05, 0.09, 0.30, 0.56,
@@ -81,4 +82,3 @@ make_pred_sigs(prey_sigs = matrix(c(0.06, 0.09, 0.31, 0.54,
                n_pred = 50)
 
 }
-

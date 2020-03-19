@@ -90,6 +90,7 @@ Bromaghin, J.F., S.M. Budge, and G.W. Thiemann. 2016. Should fatty
   acid signature proportions sum to 1 for diet estimation?
   \emph{Ecological Research} 31:597-606.
 }
+
 \examples{
 diet_pool(rep_grp = matrix(c(1, 0, 0, 0, 0, 0, 0,
                              0, 1, 0, 0, 0, 0, 0,
@@ -116,4 +117,3 @@ diet_pool(rep_grp = matrix(c(1, 0, 0, 0, 0, 0, 0,
 
 
 }
-

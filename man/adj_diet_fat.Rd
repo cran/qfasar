@@ -67,6 +67,7 @@ Iverson, S.J., C. Field, W.D. Bowen, and W. Blanchard. 2004.
 Seber, G.A.F. 1982. The Estimation of Animal Abundance and Related
   Parameters, second edition. Macmillan Publishing Co., New York.
 }
+
 \examples{
 adj_diet_fat(prey_fat = c(0.5, 1, 2),
              diet_est = c(0.3, 0.2, 0.5),
@@ -79,4 +80,3 @@ adj_diet_fat(prey_fat = c(0.5, 1, 2),
              diet_est = c(0.3, 0.2, 0.5))
 
 }
-

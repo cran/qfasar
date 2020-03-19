@@ -83,6 +83,7 @@ Bromaghin, J.F., S.M. Budge, G.W. Thiemann, and K.D. Rode. 2016. Assessing
   the robustness of quantitative fatty acid signature analysis to assumption
   violations. \emph{Methods in Ecology and Evolution} 7:51-59.
 }
+
 \examples{
 make_ghost(prey_sigs = matrix(c(0.05, 0.10, 0.30, 0.55,
                                 0.04, 0.11, 0.29, 0.56,
@@ -104,4 +105,3 @@ make_ghost(prey_sigs = matrix(c(0.05, 0.10, 0.30, 0.55,
            loc = matrix(c(1, 3, 5, 2, 4, 6), ncol=2))
 
 }
-

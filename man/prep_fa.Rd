@@ -68,6 +68,7 @@ Iverson, S.J., C. Field, W.D. Bowen, and W. Blanchard. 2004.
   Quantitative fatty acid signature analysis: A new method of
   estimating predator diets. \emph{Ecological Monographs} 74:211-235.
 }
+
 \examples{
 prep_fa(data.frame(fa = c("use_me", "fa_1", "fa_2", "fa_3"),
                    cc = c(1, 0.75, 1.25, 1.0),
@@ -80,4 +81,3 @@ prep_fa(data.frame(fa = c("use_me", "fa_1", "fa_2", "fa_3"),
                    use_2 = c(1, 1, 1, 0)))
 
 }
-

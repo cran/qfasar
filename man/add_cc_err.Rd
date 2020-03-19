@@ -58,9 +58,9 @@ Bromaghin, J.F., S.M. Budge, G.W. Thiemann, and K.D. Rode. 2016. Assessing
   the robustness of quantitative fatty acid signature analysis to assumption
   violations. \emph{Methods in Ecology and Evolution} 7:51-59.
 }
+
 \examples{
 add_cc_err(cc_true = c(0.75, 1.00, 1.50, 1.15),
            err_bound = 0.25)
 
 }
-
